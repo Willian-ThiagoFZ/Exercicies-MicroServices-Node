@@ -11,7 +11,9 @@ const commentsByPostId = {};
 
 app.get('/posts/comments', (req, res) => res.status(200).send(commentsByPostId))
 
-app.get('/posts/:id/comments', (req, res) => commentsByPostId[req.params.id] ? res.status(200).send(commentsByPostId[req.params.id]) : res.status(404).send({ msg: "Post Não Encontrado" }));
+app.get('/posts/:id/comments', (req, res) => {
+  res.send(commentsByPostId[req.params.id] || [])
+});
 
 app.post('/posts/:id/comments', (req, res) => {
   const commentId = randomBytes(4).toString('hex');
