@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 
 const commentsByPostId = {};
 
+app.get('/posts/comments', (req, res) => res.status(200).send(commentsByPostId))
+
 app.get('/posts/:id/comments', (req, res) => commentsByPostId[req.params.id] ? res.status(200).send(commentsByPostId[req.params.id]) : res.status(404).send({ msg: "Post Não Encontrado" }));
 
 app.post('/posts/:id/comments', (req, res) => {
